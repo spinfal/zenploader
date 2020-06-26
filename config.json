@@ -9,6 +9,10 @@
       "url": "https://support.cloudflare.com/api/v2/uploads.json"
     },
     {
+      "name": "discord cdn",
+      "url": "https://support.discord.com/api/v2/uploads.json"
+    },
+    {
       "name": "airbnb support cdn",
       "url": "https://www.airbnb.co.uk/help/api/v2/uploads.json"
     }
