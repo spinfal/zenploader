@@ -15,6 +15,10 @@
     {
       "name": "airbnb support cdn",
       "url": "https://www.airbnb.co.uk/help/api/v2/uploads.json"
+    },
+    {
+      "name": "google support cdn",
+      "url": "https://support.google.com/api/v2/uploads.json"
     }
   ],
   "content-types": {
