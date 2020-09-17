@@ -14,6 +14,7 @@ python zenploader.py -h
 # Config
 You can use a default configuration file which is in config.json or configure it to add more sites or content types. You can see the example of configuration file in the config.json file.
 
-## Built with ❤️ by
+## Built and modified with ❤️ by
 
 * [Aldas](https://github.com/AXDZ) - The creator of the script
+* [Spinfal](https://github.com/spinfal) - The one who modifed and made this repo/[repl](http://spintool.rf.gd/zenploader.html) 

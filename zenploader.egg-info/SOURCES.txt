@@ -1,0 +1,8 @@
+README.md
+setup.py
+zenploader.py
+zenploader.egg-info/PKG-INFO
+zenploader.egg-info/SOURCES.txt
+zenploader.egg-info/dependency_links.txt
+zenploader.egg-info/requires.txt
+zenploader.egg-info/top_level.txt
