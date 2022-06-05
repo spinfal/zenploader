@@ -9,6 +9,10 @@
       "url": "https://support.cloudflare.com/api/v2/uploads.json"
     },
     {
+      "name": "groovy zendesk",
+      "url": "https://groovy.zendesk.com/api/v2/uploads.json"
+    },
+    {
       "name": "discord cdn",
       "url": "https://support.discord.com/api/v2/uploads.json"
     },
@@ -19,6 +23,14 @@
     {
       "name": "google support cdn",
       "url": "https://support.google.com/api/v2/uploads.json"
+    },
+    {
+      "name": "roblox support cdn",
+      "url": "https://en.help.roblox.com/api/v2/uploads.json"
+    },
+    {
+      "name": "minecraft support cdn",
+      "url": "https://help.minecraft.net/api/v2/uploads.json"
     }
   ],
   "content-types": {

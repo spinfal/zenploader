@@ -6,6 +6,10 @@ from argparse import ArgumentParser, RawDescriptionHelpFormatter
 
 
 def zenpload(url, filename, content_type, data):
+    print(url)
+    print(filename)
+    print(content_type)
+    print(data)
     req = requests.post(f"{url}?filename={filename}", headers={"Content-Type": content_type}, data=data)
     return req.status_code, req.json()
 
