@@ -5,24 +5,8 @@
       "url": "https://consumercomplaints.fcc.gov/api/v2/uploads.json"
     },
     {
-      "name": "cloudflare support cdn",
-      "url": "https://support.cloudflare.com/api/v2/uploads.json"
-    },
-    {
-      "name": "groovy zendesk",
-      "url": "https://groovy.zendesk.com/api/v2/uploads.json"
-    },
-    {
-      "name": "discord cdn",
-      "url": "https://support.discord.com/api/v2/uploads.json"
-    },
-    {
-      "name": "airbnb support cdn",
-      "url": "https://www.airbnb.co.uk/help/api/v2/uploads.json"
-    },
-    {
-      "name": "google support cdn",
-      "url": "https://support.google.com/api/v2/uploads.json"
+      "name": "etsy support cdn",
+      "url": "https://help.etsy.com/api/v2/uploads.json"
     },
     {
       "name": "roblox support cdn",
