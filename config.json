@@ -15,6 +15,162 @@
     {
       "name": "minecraft support cdn",
       "url": "https://help.minecraft.net/api/v2/uploads.json"
+    },
+    {
+      "name": "nokia support cdn",
+      "url": "https://wifi-helpcenter.nokia.com/api/v2/uploads.json"
+    },
+    {
+      "name": "reddit support cdn",
+      "url": "https://reddit.zendesk.com/api/v2/uploads.json"
+    },
+    {
+      "name": "github support cdn",
+      "url": "https://github.zendesk.com/api/v2/uploads.json"
+    },
+    {
+      "name": "box support cdn",
+      "url": "https://support.box.com/api/v2/uploads.json"
+    },
+    {
+      "name": "logitech support cdn",
+      "url": "https://support.logi.com/api/v2/uploads.json"
+    },
+    {
+      "name": "grindr support cdn",
+      "url": "https://help.grindr.com/api/v2/uploads.json"
+    },
+    {
+      "name": "openshit (opensea) support cdn",
+      "url": "https://support.opensea.io/api/v2/uploads.json"
+    },
+    {
+      "name": "corsair support cdn",
+      "url": "https://help.corsair.com/api/v2/uploads.json"
+    },
+    {
+      "name": "venmo support cdn",
+      "url": "https://help.venmo.com/api/v2/uploads.json"
+    },
+    {
+      "name": "ring support cdn",
+      "url": "https://support.ring.com/api/v2/uploads.json"
+    },
+    {
+      "name": "blockchain support cdn",
+      "url": "https://support.blockchain.com/api/v2/uploads.json"
+    },
+    {
+      "name": "league of legends support cdn",
+      "url": "https://support-leagueoflegends.riotgames.com/api/v2/uploads.json"
+    },
+    {
+      "name": "tinder support cdn",
+      "url": "https://www.help.tinder.com/api/v2/uploads.json"
+    },
+    {
+      "name": "giphy support cdn",
+      "url": "https://support.giphy.com/api/v2/uploads.json"
+    },
+    {
+      "name": "wyze support cdn",
+      "url": "https://support.wyze.com/api/v2/uploads.json"
+    },
+    {
+      "name": "fox news support cdn",
+      "url": "https://help.foxnews.com/api/v2/uploads.json"
+    },
+    {
+      "name": "gofundme support cdn",
+      "url": "https://support.gofundme.com/api/v2/uploads.json"
+    },
+    {
+      "name": "espn support cdn",
+      "url": "https://support.espn.com/api/v2/uploads.json"
+    },
+    {
+      "name": "2k support cdn",
+      "url": "https://support.2k.com/api/v2/uploads.json"
+    },
+    {
+      "name": "patreon support cdn",
+      "url": "https://support.patreon.com/api/v2/uploads.json"
+    },
+    {
+      "name": "malwarebytes support cdn",
+      "url": "https://support.malwarebytes.com/api/v2/uploads.json"
+    },
+    {
+      "name": "indigogo support cdn",
+      "url": "https://support.indiegogo.com/api/v2/uploads.json"
+    },
+    {
+      "name": "twilio support cdn",
+      "url": "https://support.twilio.com/api/v2/uploads.json"
+    },
+    {
+      "name": "grammarly support cdn",
+      "url": "https://support.grammarly.com/api/v2/uploads.json"
+    },
+    {
+      "name": "kahoot support cdn",
+      "url": "https://support.kahoot.com/api/v2/uploads.json"
+    },
+    {
+      "name": "nytimes support cdn",
+      "url": "https://help.nytimes.com/api/v2/uploads.json"
+    },
+    {
+      "name": "kickstarter support cdn",
+      "url": "https://help.kickstarter.com/api/v2/uploads.json"
+    },
+    {
+      "name": "iheartradio support cdn",
+      "url": "https://help.iheart.com/api/v2/uploads.json"
+    },
+    {
+      "name": "signal support cdn",
+      "url": "https://support.signal.org/api/v2/uploads.json"
+    },
+    {
+      "name": "avira support cdn",
+      "url": "https://support.avira.com/api/v2/uploads.json"
+    },
+    {
+      "name": "netflix support cdn",
+      "url": "https://partnerhelp.netflixstudios.com/api/v2/uploads.json"
+    },
+    {
+      "name": "sega support cdn",
+      "url": "https://support.sega.com/api/v2/uploads.json"
+    },
+    {
+      "name": "dashlane support cdn",
+      "url": "https://support.dashlane.com/api/v2/uploads.json"
+    },
+    {
+      "name": "rocket league support cdn",
+      "url": "https://support.rocketleague.com/api/v2/uploads.json"
+    },
+    {
+      "name": "deezer support cdn",
+      "url": "https://support.deezer.com/api/v2/uploads.json"
+    },
+    {
+      "name": "intellij support cdn",
+      "url": "https://intellij-support.jetbrains.com/api/v2/uploads.json"
+    },
+    {
+      "name": "virustotal support cdn",
+      "url": "https://support.virustotal.com/api/v2/uploads.json"
+    },
+    {
+      "name": "vrchat support cdn",
+      "url": "https://help.vrchat.com/api/v2/uploads.json"
+    },
+    {
+      "name": "soundcloud support cdn",
+      "url": "https://help.soundcloud.com/api/v2/uploads.json"
     }
   ],
   "content-types": {
