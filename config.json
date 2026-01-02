@@ -21,6 +21,10 @@
       "url": "https://wifi-helpcenter.nokia.com/api/v2/uploads.json"
     },
     {
+      "name": "discord moderator academy cdn",
+      "url": "https://discordmoderatoracademy.zendesk.com/api/v2/uploads.json"
+    },
+    {
       "name": "reddit support cdn",
       "url": "https://reddit.zendesk.com/api/v2/uploads.json"
     },
@@ -171,6 +175,10 @@
     {
       "name": "soundcloud support cdn",
       "url": "https://help.soundcloud.com/api/v2/uploads.json"
+    },
+    {
+      "name": "name.com support cdn",
+      "url": "https://name.zendesk.com/api/v2/uploads.json"
     }
   ],
   "content-types": {
