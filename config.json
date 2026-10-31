@@ -1,6 +1,10 @@
 {
   "sites": [
     {
+      "name": "teamspeak support cdn",
+      "url": "https://support.teamspeak.com/api/v2/uploads.json"
+    },
+    {
       "name": "fcc consumer complaints cdn",
       "url": "https://consumercomplaints.fcc.gov/api/v2/uploads.json"
     },
@@ -21,8 +25,8 @@
       "url": "https://wifi-helpcenter.nokia.com/api/v2/uploads.json"
     },
     {
-      "name": "discord moderator academy cdn",
-      "url": "https://discordmoderatoracademy.zendesk.com/api/v2/uploads.json"
+      "name": "discord support cdn",
+      "url": "https://support.discord.com/api/v2/uploads.json"
     },
     {
       "name": "reddit support cdn",

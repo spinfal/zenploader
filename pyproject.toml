@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "zenploader"
+version = "1.0.0"
+description = "Upload files to Zendesk help-desk upload APIs and get a public CDN URL."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+dependencies = [
+    "requests>=2.31",
+    "rich>=13.0",
+    "questionary>=2.0",
+]
+
+[project.scripts]
+zenploader = "zenploader:main"
+
+[tool.setuptools]
+py-modules = ["zenploader"]

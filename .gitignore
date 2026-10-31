@@ -1,1 +1,15 @@
 files/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Replit
+.pythonlibs/
+.upm/
