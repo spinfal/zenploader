@@ -1,3 +1,4 @@
 requests>=2.31
 rich>=13.0
 questionary>=2.0
+flask>=3.0

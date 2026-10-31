@@ -39,6 +39,30 @@ python zenploader.py
 Arrow keys move, Enter selects, and most lists are searchable - just start
 typing. Ctrl-C backs out of an action.
 
+## Web UI
+
+There's also a browser UI with the same functionality (upload files or text,
+pick a target, manage sites). Browsers can't POST to the Zendesk endpoints
+directly (CORS), so a small Flask server does it for them; it reuses the exact
+upload logic from `zenploader.py`.
+
+```bash
+pip install -r requirements.txt
+python webapp.py                 # http://127.0.0.1:5000
+```
+
+Flags:
+
+| Flag | Description |
+| --- | --- |
+| `--host HOST` | Interface to bind (default `127.0.0.1`). |
+| `--port PORT` | Port to bind (default `5000`). |
+| `--config PATH` | Use an alternative config file. |
+| `--debug` | Enable Flask debug/reload. |
+
+The UI shares `config.json` with the CLI, so sites added or removed in one show
+up in the other.
+
 Or drive it entirely from flags for scripting:
 
 ```bash

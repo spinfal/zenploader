@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>zenploader</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <main class="wrap">
+    <header class="banner-box">
+      <pre id="banner" class="banner" aria-label="zenploader"></pre>
+      <p class="subtitle">zendesk upload cdn <span class="dot">·</span> <span class="ver">v1.0.0</span></p>
+    </header>
+
+    <nav class="tabs" role="tablist">
+      <button class="tab is-active" data-tab="upload" role="tab">upload</button>
+      <button class="tab" data-tab="sites" role="tab">sites</button>
+      <button class="tab" data-tab="about" role="tab">about</button>
+    </nav>
+
+    <!-- UPLOAD ------------------------------------------------------------ -->
+    <section class="panel is-active" data-panel="upload">
+      <div class="seg">
+        <button class="seg-btn is-active" data-mode="file">file</button>
+        <button class="seg-btn" data-mode="text">text</button>
+      </div>
+
+      <div class="mode" data-mode="file">
+        <label id="drop" class="drop" tabindex="0">
+          <input id="file-input" type="file" hidden />
+          <span class="drop-icon">▓▒░</span>
+          <span class="drop-main">drop a file here</span>
+          <span class="drop-sub">or click to browse</span>
+          <span id="file-meta" class="file-meta" hidden></span>
+        </label>
+      </div>
+
+      <div class="mode" data-mode="text" hidden>
+        <textarea id="text-input" class="text-input" rows="6"
+          placeholder="paste some text... it gets uploaded as a .txt"></textarea>
+      </div>
+
+      <div class="grid2">
+        <label class="field">
+          <span class="field-label">filename</span>
+          <input id="name-input" type="text" placeholder="auto-detected" />
+        </label>
+        <label class="field">
+          <span class="field-label">content-type <span class="muted">(optional)</span></span>
+          <input id="ctype-input" type="text" placeholder="auto-detected" list="ctype-list" />
+          <datalist id="ctype-list"></datalist>
+        </label>
+      </div>
+
+      <label class="field">
+        <span class="field-label">upload target</span>
+        <div class="picker">
+          <input id="site-search" type="text" placeholder="search sites..." autocomplete="off" />
+          <ul id="site-list" class="site-list"></ul>
+        </div>
+        <span id="site-chosen" class="site-chosen" hidden></span>
+      </label>
+
+      <button id="upload-btn" class="btn btn-go" disabled>
+        <span class="btn-face">upload ▸</span>
+      </button>
+
+      <div id="status" class="status" hidden></div>
+
+      <div id="result" class="result" hidden>
+        <div class="result-head">✓ upload complete</div>
+        <div class="result-row">
+          <a id="result-url" class="result-url" href="#" target="_blank" rel="noopener"></a>
+          <button id="copy-btn" class="btn btn-copy">copy</button>
+        </div>
+        <div id="result-meta" class="result-meta"></div>
+      </div>
+    </section>
+
+    <!-- SITES ------------------------------------------------------------- -->
+    <section class="panel" data-panel="sites" hidden>
+      <form id="add-form" class="add-form">
+        <div class="grid2">
+          <label class="field">
+            <span class="field-label">name</span>
+            <input id="add-name" type="text" placeholder="acme support cdn" required />
+          </label>
+          <label class="field">
+            <span class="field-label">url</span>
+            <input id="add-url" type="text" placeholder="https://support.acme.com/api/v2/uploads.json" required />
+          </label>
+        </div>
+        <button class="btn btn-add" type="submit"><span class="btn-face">+ add site</span></button>
+      </form>
+      <div id="sites-status" class="status" hidden></div>
+      <ul id="sites-manage" class="sites-manage"></ul>
+    </section>
+
+    <!-- ABOUT ------------------------------------------------------------- -->
+    <section class="panel" data-panel="about" hidden>
+      <div class="about">
+        <p>zendesk help desks expose an unauthenticated
+          <code>/api/v2/uploads.json</code> endpoint used to attach files to
+          tickets. zenploader posts a file (or some text) to one of those
+          endpoints and hands you back the public, cdn-backed url.</p>
+        <p class="warn">uploads are temporary - the response includes an
+          <code>expires_at</code> timestamp. only upload content you're allowed
+          to, and respect each help desk's terms of service.</p>
+      </div>
+    </section>
+
+    <footer class="foot">zenploader <span class="dot">·</span> for educational use</footer>
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
