@@ -385,8 +385,13 @@ def read_file_bytes(path: Path) -> bytes:
         raise ZenploaderError(f"Could not read file {path}: {exc}") from exc
 
 
-def zenpload(url: str, filename: str, content_type: str, data: bytes) -> dict:
-    """POST the payload to the Zendesk uploads endpoint and return the JSON body."""
+def zenpload(url: str, filename: str, content_type: str, data: bytes,
+             allow_redirects: bool = True) -> dict:
+    """POST the payload to the Zendesk uploads endpoint and return the JSON body.
+
+    The web front end passes allow_redirects=False so a target cannot bounce
+    the request to an internal address after the URL has been vetted.
+    """
     endpoint = f"{url}?filename={quote(filename)}"
     try:
         resp = requests.post(
@@ -397,6 +402,7 @@ def zenpload(url: str, filename: str, content_type: str, data: bytes) -> dict:
             },
             data=data,
             timeout=REQUEST_TIMEOUT,
+            allow_redirects=allow_redirects,
         )
     except requests.exceptions.MissingSchema as exc:
         raise ZenploaderError(f"Invalid URL '{url}' - check the formatting.") from exc

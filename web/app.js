@@ -68,11 +68,21 @@ function initDrop() {
   const drop = $("#drop");
   const input = $("#file-input");
 
-  drop.addEventListener("click", () => input.click());
+  drop.addEventListener("click", (e) => {
+    // the hidden input lives inside this label, so its own programmatic click
+    // bubbles back here. ignore that, and stop the label from also opening the
+    // picker, so iOS Safari gets exactly one open instead of a double trigger.
+    if (e.target === input) return;
+    e.preventDefault();
+    input.click();
+  });
   drop.addEventListener("keydown", (e) => {
     if (e.key === "Enter" || e.key === " ") { e.preventDefault(); input.click(); }
   });
-  input.addEventListener("change", () => setFile(input.files[0] || null));
+  input.addEventListener("change", () => {
+    // only register a real selection, so a stray empty change cannot wipe it
+    if (input.files && input.files.length) setFile(input.files[0]);
+  });
 
   ["dragenter", "dragover"].forEach((ev) =>
     drop.addEventListener(ev, (e) => { e.preventDefault(); drop.classList.add("drag"); })
@@ -157,7 +167,17 @@ function refreshGate() {
   let hasPayload;
   if (state.mode === "file") hasPayload = !!state.file;
   else hasPayload = $("#text-input").value.length > 0;
-  $("#upload-btn").disabled = !(hasTarget && hasPayload);
+  const btn = $("#upload-btn");
+  const face = btn.querySelector(".btn-face");
+  btn.disabled = !(hasTarget && hasPayload);
+  // tell the user which step is still missing instead of a dead, silent button
+  if (!hasPayload) {
+    face.textContent = state.mode === "file" ? "add a file first" : "add some text first";
+  } else if (!hasTarget) {
+    face.textContent = "pick an upload target below";
+  } else {
+    face.textContent = "upload ▸";
+  }
 }
 
 // ---- upload ----------------------------------------------------------
@@ -196,7 +216,17 @@ async function doUpload() {
     status.hidden = true;
     result.hidden = false;
     const a = $("#result-url");
-    a.href = j.url;
+    // only let web links become the clickable href, never javascript: or data: schemes
+    let safeHref = "#";
+    try {
+      const u = new URL(j.url);
+      if (u.protocol === "http:" || u.protocol === "https:") {
+        safeHref = j.url;
+      }
+    } catch (err) {
+      safeHref = "#";
+    }
+    a.href = safeHref;
     a.textContent = j.url;
     $("#result-meta").textContent =
       `${j.filename} · ${humanSize(j.size)} · ${j.content_type}` +
@@ -297,3 +327,4 @@ initCopy();
 initSitesManage();
 populateCtypes();
 loadSites();
+refreshGate();

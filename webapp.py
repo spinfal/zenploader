@@ -21,7 +21,10 @@ Flags:
 from __future__ import annotations
 
 import argparse
+import ipaddress
+import socket
 from pathlib import Path
+from urllib.parse import urlparse
 
 from flask import Flask, jsonify, request, send_from_directory
 
@@ -46,17 +49,82 @@ def _error(message: str, status: int = 400):
     return jsonify({"ok": False, "error": message}), status
 
 
+def _origin_netloc(value: str) -> str:
+    """Return the host:port portion of an Origin or Referer header."""
+    return urlparse(value).netloc
+
+
+def _is_loopback_host(host: str) -> bool:
+    """True if the bind host stays on the local machine."""
+    if host == "localhost":
+        return True
+    try:
+        return ipaddress.ip_address(host).is_loopback
+    except ValueError:
+        return False
+
+
+def _is_safe_destination(url: str) -> bool:
+    """True if the URL is http/https and every resolved address is public.
+
+    Guards the upload route against reaching loopback or private-network
+    services (SSRF). Checking all resolved records rejects a hostname that
+    maps even partly into a private range.
+    """
+    parsed = urlparse(url)
+    if parsed.scheme not in ("http", "https"):
+        return False
+    host = parsed.hostname
+    if not host:
+        return False
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    try:
+        infos = socket.getaddrinfo(host, port)
+    except socket.gaierror:
+        return False
+    for info in infos:
+        try:
+            ip = ipaddress.ip_address(info[4][0])
+        except ValueError:
+            return False
+        if (ip.is_loopback or ip.is_private or ip.is_link_local
+                or ip.is_multicast or ip.is_reserved or ip.is_unspecified):
+            return False
+    return True
+
+
+@app.before_request
+def _block_cross_origin():
+    """Reject state-changing requests whose Origin/Referer is not our own.
+
+    This stops a web page the user happens to visit from driving the server
+    through their browser, which matters once it binds a routable interface.
+    """
+    if request.method in ("POST", "PUT", "PATCH", "DELETE"):
+        origin = request.headers.get("Origin")
+        referer = request.headers.get("Referer")
+        if origin and _origin_netloc(origin) != request.host:
+            return _error("Cross-origin request blocked.", 403)
+        if not origin and referer and _origin_netloc(referer) != request.host:
+            return _error("Cross-origin request blocked.", 403)
+    return None
+
+
 # --------------------------------------------------------------------------- #
 # Static / page
 # --------------------------------------------------------------------------- #
 @app.get("/")
 def index():
-    return send_from_directory(BASE_DIR / "web", "index.html")
+    resp = send_from_directory(BASE_DIR / "web", "index.html")
+    resp.headers["Cache-Control"] = "no-cache"
+    return resp
 
 
 @app.get("/static/<path:filename>")
 def static_files(filename: str):
-    return send_from_directory(BASE_DIR / "web", filename)
+    resp = send_from_directory(BASE_DIR / "web", filename)
+    resp.headers["Cache-Control"] = "no-cache"
+    return resp
 
 
 # --------------------------------------------------------------------------- #
@@ -126,6 +194,8 @@ def api_upload():
     url = (request.form.get("url") or "").strip()
     if not (url.startswith(("http://", "https://")) and len(url) > 8):
         return _error("Pick a valid upload target first.")
+    if not _is_safe_destination(url):
+        return _error("That upload target is not allowed.")
 
     override_name = (request.form.get("filename") or "").strip()
     override_type = (request.form.get("content_type") or "").strip()
@@ -157,14 +227,20 @@ def api_upload():
         return _error(f"Filename too long (max {zp.MAX_FILENAME_LEN} characters).")
 
     try:
-        body = zp.zenpload(url=url, filename=filename, content_type=content_type, data=data)
+        body = zp.zenpload(url=url, filename=filename, content_type=content_type,
+                           data=data, allow_redirects=False)
         upload_obj = body["upload"]
         file_url = upload_obj["attachments"][0]["mapped_content_url"]
         expires_raw = upload_obj.get("expires_at", "")
     except zp.ZenploaderError as exc:
-        return _error(str(exc), 502)
+        app.logger.warning("upstream upload failed: %s", exc)
+        return _error("The upload target rejected the request.", 502)
     except (KeyError, IndexError):
         return _error("Upload succeeded but the response had an unexpected shape.", 502)
+
+    if urlparse(file_url).scheme not in ("http", "https"):
+        app.logger.warning("upstream returned a non-web URL: %r", file_url)
+        return _error("The upload target returned an unexpected URL.", 502)
 
     return jsonify({
         "ok": True,
@@ -190,6 +266,12 @@ def main() -> None:
     args = parser.parse_args()
 
     CONFIG_PATH = Path(args.config)
+    if not _is_loopback_host(args.host):
+        print(
+            f"WARNING: binding to {args.host} exposes this server to your "
+            "network. Anyone who can reach it can upload through your "
+            "configured sites, so only do this on a trusted network."
+        )
     app.run(host=args.host, port=args.port, debug=args.debug)
 
 
